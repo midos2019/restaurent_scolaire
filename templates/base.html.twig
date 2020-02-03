@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    {% block stylesheets %}
+        {% include 'layout_header.html.twig' %}
+    {% endblock %}
+</head>
+
+<body {% block body_class %} {% endblock %}>
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% block form_label %}
+        {% if required %}
+            <span class="required" title="Ce champ est obligatoire">*</span>
+        {% endif %}
+    {% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+    {% include 'layout_footer.html.twig' %}
+
+
+
+<script>
+    /*     ===========================test de reférence d'une article=========================== */
+
+   /* $("#register").click(function() {
+    var reference_stock = $('#article_reference_stock').val();
+    console.log('La valeur récupéreé est:'+reference_stock)
+    $('#article_reference_stock').removeClass("border_error");
+    console.log('Ref : '+reference_stock);
+    var response = $.ajax({
+        type: "GET",
+        url: "{{ url('reference_check_validity') }}",
+        data: {reference_stock: reference_stock},//(parametre: valeur)
+        async: false
+    }).responseText;
+    console.log(response);
+    if(response == 'exist'){
+        $('#article_reference_stock').addClass("border_error");
+        $('#reference_result').addClass("error_style");
+        $('#reference_result').text("خطأ:هذا المرجع موجود");
+        return false;
+    }else{
+        return true;
+    }
+});*/
+
+</script>
+{% endblock %}
+
+</body>
+</html>

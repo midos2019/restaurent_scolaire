@@ -1,0 +1,99 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ app.user.email|upper }} {% endblock %}
+{% block body_class %} class="nav-md" {% endblock %}
+
+{% block body %}
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col hidden-print">
+                {% include('layouts/sidebar.html.twig') %}
+            </div>
+            {% include('layouts/navbar.html.twig') %}
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>{{ "Table of stock"|trans }}</h3>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="row">
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            
+                            <div class="x_content">
+                                <p class="text-muted font-13 m-b-30">
+                                    <a href="{{ path('line_stock_pdf') }}" class="btn btn-info left"><i class="fa fa-print" style="margin-left: 1rem"></i>{{  "Print stock today" | trans }} </a>
+                                <br>
+                                <div class="ln_solid"></div>
+                                    {#<a href="{{ path('line_stock_new') }}" class="btn btn-success"><i class="fa fa-plus" style="margin-left: 2rem"></i>{{  "Add article" | trans }} </a>#}
+
+                                </p>
+                                <table id="datatable" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            {#<th>{{ "Date"|trans }}</th>#}
+                                            <th>{{ "Category"|trans }}</th>
+
+                                            <th>{{ "Article in stock"|trans }}</th>
+                                            <th>{{ "Reference stock"|trans }}</th>
+                                            <th>{{ "Prod date"|trans }}</th>
+                                            <th>{{ "Valid date"|trans }}</th>
+                                            <th>{{ "Old quantity"|trans }}</th>
+                                            <th>{{ "Update quantity"|trans }}</th>
+                                            <th>{{ "Quantity alerte"|trans }}</th>
+                                            <th>{{ "Unit price"|trans }}</th>
+                                            {#<th>{{ "Total price"|trans }}</th>#}
+                                            {#<th>{{ "Actions"|trans }}</th>#}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                   {% for line_stock in line_stocks %}
+                                       <tr>
+                                           {#<td>{{ line_stock.date ? line_stock.date|date('Y-m-d') : ''  }}</td>#}
+                                           <td>{{ line_stock.linePurchase.article.category }}</td>
+
+                                               <td>{{ line_stock.linePurchase.article }}</td>
+                                               <td>{{ line_stock.linePurchase.article.referenceStock }}</td>
+
+                                           {#<td>{{ line_stock.linePurchase.production ? line_stock.linePurchase.production|date('Y-m-d') : ''  }}</td>
+                                           <td>{{ line_stock.linePurchase.validation ? line_stock.linePurchase.validation|date('Y-m-d') : ''  }}</td>#}
+                                           <td>{{ line_stock.prodDate ? line_stock.prodDate|date('Y-m-d') : ''  }}</td>
+                                           <td>{{ line_stock.validDate ? line_stock.validDate|date('Y-m-d') : ''  }}</td>
+
+                                           <td>{{ line_stock.oldQty }}</td>
+                                           <td>{{ line_stock.qtyUpdate }}</td>
+                                           <td>{{ line_stock.quantityAlerte }}</td>
+{#                                           <td>{{ line_stock.linePurchase.unitPrice }}</td>#}
+                                           <td>{{ line_stock.unitPrice }}</td>
+
+                                           {#<td></td>#}
+
+                                          {# <td>
+                                               <a href="{{ path('line_stock_show', {'id': line_stock.id}) }} " class="btn btn-primary btn-block"><i class="fa fa-eye" style="margin-left: 2rem"></i>{{  "show" | trans }}</a>
+                                               <a href="{{ path('line_stock_edit', {'id': line_stock.id}) }}" class="btn btn-warning btn-block"><i class="fa fa-edit" style="margin-left: 2rem"></i>{{  "edit" | trans }}</a>
+                                           </td>#}
+                                       </tr>
+                                   {% else %}
+                                       <tr class="text-center">
+                                           <td colspan="9">  {{ "no records found"|trans }}</td>
+                                       </tr>
+                                   {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {% include('layouts/footer.html.twig') %}
+        </div>
+    </div>
+
+{% endblock %}
+
